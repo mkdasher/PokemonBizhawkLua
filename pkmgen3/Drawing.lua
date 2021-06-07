@@ -301,7 +301,7 @@ function Drawing.drawButtons()
 					for j = 1, Program.map.encounters[encountermode].SLOTS, 1 do
 						local levelstr = Program.map.encounters[encountermode].pokemon[j].minlevel
 						if Program.map.encounters[encountermode].pokemon[j].minlevel ~= Program.map.encounters[encountermode].pokemon[j].maxlevel then
-							local levelstr = levelstr .. '-' .. Program.map.encounters[encountermode].pokemon[j].maxlevel
+							levelstr = levelstr .. '-' .. Program.map.encounters[encountermode].pokemon[j].maxlevel
 						end
 						if LayoutSettings.selectedslot[j] then
 							gui.drawRectangle(Buttons[i].box_first[1], Buttons[i].box_first[2] + j * (Buttons[i].box_first[4] + 2), Buttons[i].box_first[4], Buttons[i].box_first[4], 'white', GraphicConstants.SLOTCOLORS[j])
