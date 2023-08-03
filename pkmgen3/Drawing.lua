@@ -204,7 +204,7 @@ function Drawing.drawMap()
 end
 
 function Drawing.drawButtons()
-	for i = 1, table.getn(Buttons), 1 do
+	for i = 1, #Buttons, 1 do
 		if Buttons[i].visible() then
 			if Buttons[i].type == ButtonType.singleButton then
 				gui.drawRectangle(Buttons[i].box[1], Buttons[i].box[2], Buttons[i].box[3], Buttons[i].box[4], Buttons[i].backgroundcolor[1], Buttons[i].backgroundcolor[2])
@@ -212,7 +212,7 @@ function Drawing.drawButtons()
 			elseif Buttons[i].type == ButtonType.horizontalMenu then
 				local selecteditem = LayoutSettings.menus[Buttons[i].model].selecteditem
 				local menuitems = LayoutSettings.menus[Buttons[i].model].items
-				local itemcount = table.getn(menuitems)
+				local itemcount = #menuitems
 				local itemwidth = Buttons[i].box[3] / itemcount
 				for j = 1, itemcount, 1 do
 					gui.drawRectangle((j-1) * itemwidth + Buttons[i].box[1], Buttons[i].box[2], itemwidth, Buttons[i].box[4], GraphicConstants.NONSELECTEDCOLOR)
@@ -223,7 +223,7 @@ function Drawing.drawButtons()
 			elseif Buttons[i].type == ButtonType.horizontalMenuBar then
 				local selecteditem = LayoutSettings.menus[Buttons[i].model].selecteditem
 				local menuitems = LayoutSettings.menus[Buttons[i].model].items
-				local itemcount = table.getn(menuitems)
+				local itemcount = #menuitems
 				local itemwidth = (Buttons[i].box[3] - (Buttons[i].box[4] * 2)) / Buttons[i].visibleitems
 				gui.drawRectangle(Buttons[i].box[1], Buttons[i].box[2], Buttons[i].box[4], Buttons[i].box[4], GraphicConstants.NONSELECTEDCOLOR)
 				if Buttons[i].firstvisible > 1 then
@@ -245,7 +245,7 @@ function Drawing.drawButtons()
 			elseif Buttons[i].type == ButtonType.verticalMenu then
 				local selecteditem = LayoutSettings.menus[Buttons[i].model].selecteditem
 				local menuitems = LayoutSettings.menus[Buttons[i].model].items
-				local itemcount = table.getn(menuitems)
+				local itemcount = #menuitems
 				for j = 1, itemcount, 1 do
 					gui.drawRectangle(Buttons[i].box_first[1], Buttons[i].box_first[2] + (j-1) * Buttons[i].box_first[4], Buttons[i].box_first[3], Buttons[i].box_first[4], GraphicConstants.NONSELECTEDCOLOR)
 					local itemtext = menuitems[j]
@@ -322,7 +322,7 @@ function Drawing.drawButtons()
 				if GameSettings.version == GameSettings.VERSIONS.E then
 					pickupitem = pickupitem[LayoutSettings.menus.pickuplevel.selecteditem]
 				end
-				for j = 1, table.getn(pickupitem), 1 do
+				for j = 1, #pickupitem, 1 do
 					if LayoutSettings.selectedslot[j] then
 						gui.drawRectangle(Buttons[i].box_first[1], Buttons[i].box_first[2] + j * (Buttons[i].box_first[4] + 2), Buttons[i].box_first[4], Buttons[i].box_first[4], 'white', GraphicConstants.SLOTCOLORS[j])
 						Drawing.drawText(Buttons[i].box_first[1] + 10, Buttons[i].box_first[2] - 2 + j * (Buttons[i].box_first[4] + 2), "(" .. pickuprarity[j] .. "%):")
@@ -336,7 +336,7 @@ function Drawing.drawButtons()
 			elseif Buttons[i].type == ButtonType.catchData then
 				local enabled = Buttons[i].enabled()
 				local data = Buttons[i].data()
-				for j = 1, table.getn(Buttons[i].text), 1 do
+				for j = 1, #Buttons[i].text, 1 do
 					local itemcolor = GraphicConstants.NONSELECTEDCOLOR
 					if enabled[j] then
 						itemcolor = 'white'

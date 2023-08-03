@@ -61,8 +61,8 @@ function Map.findCoords(mapid)
 	local x = 0
 	local y = 0
 	local count = 0
-	for i = 1, table.getn(Map.grid), 1 do
-		for j = 1, table.getn(Map.grid[i]), 1 do
+	for i = 1, #Map.grid, 1 do
+		for j = 1, #Map.grid[i], 1 do
 			if mapid == Map.grid[i][j] then
 				count = count + 1
 				x = x + j

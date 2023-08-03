@@ -198,9 +198,9 @@ function Program.getTrainerData(index)
 	for i = 1,6,1 do
 		local start = st + 100 * (i - 1)
 		local personality = Memory.readdword(start)
-		local magicword = bit.bxor(personality, Memory.readdword(start + 4))
+		local magicword = (personality ~ Memory.readdword(start + 4))
 		local growthoffset = (TableData.growth[(personality % 24) + 1] - 1) * 12
-		local growth = bit.bxor(Memory.readdword(start + 32 + growthoffset), magicword)
+		local growth = (Memory.readdword(start + 32 + growthoffset) ~ magicword)
 		trainerdata[i] = {
 			pkmID = Utils.getbits(growth, 0, 16),
 			curHP = Memory.readword(start + 86),
@@ -221,7 +221,7 @@ function Program.getPokemonData(index)
 	
 	local personality = Memory.readdword(start)
 	local otid = Memory.readdword(start + 4)
-	local magicword = bit.bxor(personality, otid)
+	local magicword = (personality ~ otid)
 	
 	local aux = personality % 24
 	local growthoffset = (TableData.growth[aux+1] - 1) * 12
@@ -229,18 +229,18 @@ function Program.getPokemonData(index)
 	local effortoffset = (TableData.effort[aux+1] - 1) * 12
 	local miscoffset   = (TableData.misc[aux+1]   - 1) * 12
 	
-	local growth1 = bit.bxor(Memory.readdword(start+32+growthoffset),   magicword)
-	local growth2 = bit.bxor(Memory.readdword(start+32+growthoffset+4), magicword)
-	local growth3 = bit.bxor(Memory.readdword(start+32+growthoffset+8), magicword)
-	local attack1 = bit.bxor(Memory.readdword(start+32+attackoffset),   magicword)
-	local attack2 = bit.bxor(Memory.readdword(start+32+attackoffset+4), magicword)
-	local attack3 = bit.bxor(Memory.readdword(start+32+attackoffset+8), magicword)
-	local effort1 = bit.bxor(Memory.readdword(start+32+effortoffset),   magicword)
-	local effort2 = bit.bxor(Memory.readdword(start+32+effortoffset+4), magicword)
-	local effort3 = bit.bxor(Memory.readdword(start+32+effortoffset+8), magicword)
-	local misc1   = bit.bxor(Memory.readdword(start+32+miscoffset),     magicword)
-	local misc2   = bit.bxor(Memory.readdword(start+32+miscoffset+4),   magicword)
-	local misc3   = bit.bxor(Memory.readdword(start+32+miscoffset+8),   magicword)
+	local growth1 = (Memory.readdword(start+32+growthoffset) ~   magicword)
+	local growth2 = (Memory.readdword(start+32+growthoffset+4) ~ magicword)
+	local growth3 = (Memory.readdword(start+32+growthoffset+8) ~ magicword)
+	local attack1 = (Memory.readdword(start+32+attackoffset) ~   magicword)
+	local attack2 = (Memory.readdword(start+32+attackoffset+4) ~ magicword)
+	local attack3 = (Memory.readdword(start+32+attackoffset+8) ~ magicword)
+	local effort1 = (Memory.readdword(start+32+effortoffset) ~   magicword)
+	local effort2 = (Memory.readdword(start+32+effortoffset+4) ~ magicword)
+	local effort3 = (Memory.readdword(start+32+effortoffset+8) ~ magicword)
+	local misc1   = (Memory.readdword(start+32+miscoffset) ~     magicword)
+	local misc2   = (Memory.readdword(start+32+miscoffset+4) ~   magicword)
+	local misc3   = (Memory.readdword(start+32+miscoffset+8) ~   magicword)
 	
 	local cs = Utils.addhalves(growth1) + Utils.addhalves(growth2) + Utils.addhalves(growth3)
 	         + Utils.addhalves(attack1) + Utils.addhalves(attack2) + Utils.addhalves(attack3)

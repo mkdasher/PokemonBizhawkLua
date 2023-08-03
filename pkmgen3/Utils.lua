@@ -9,11 +9,11 @@ function Utils.ifelse(condition, ifcase, elsecase)
 end
 
 function Utils.getbits(a, b, d)
-	return bit.rshift(a, b) % bit.lshift(1 ,d)
+	return (a >> b) % (1 << d)
 end
 
 function Utils.gettop(a)
-	return bit.rshift(a, 16)
+	return (a >> 16)
 end
 
 function Utils.addhalves(a)
@@ -23,9 +23,9 @@ function Utils.addhalves(a)
 end
 
 function Utils.mult32(a, b)
-	local c = bit.rshift(a, 16)
+	local c = (a >> 16)
 	local d = a % 0x10000
-	local e = bit.rshift(b, 16)
+	local e = (b >> 16)
 	local f = b % 0x10000
 	local g = (c*f + d*e) % 0x10000
 	local h = d*f
@@ -57,7 +57,7 @@ function Utils.getRNGDistance(b,a)
     for j=0,31,1 do
 		if Utils.getbits(a,j,1) ~= Utils.getbits(b,j,1) then
 			b = Utils.mult32(b, RNGData.multspa[j+1])+ RNGData.multspb[j+1]
-			distseed = distseed + bit.lshift(1, j)
+			distseed = distseed + (1 << j)
 			if j == 31 then
 				distseed = distseed + 0x100000000
 			end
@@ -113,7 +113,7 @@ function Utils.getNatureColor(stat, nature)
 end
 
 function Utils.getTableValueIndex(myvalue, mytable)
-	for i=1,table.getn(mytable),1 do
+	for i=1,#mytable,1 do
 		if myvalue == mytable[i] then
 			return i
 		end
