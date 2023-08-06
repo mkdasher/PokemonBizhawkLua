@@ -64,7 +64,7 @@ function RNG.update()
 					rng2 = Utils.rngAdvance(rng)
 					local accum = 0
 					local pickuprarity = PickupData[GameSettings.version].rarity
-					for k = 1, table.getn(pickuprarity), 1 do
+					for k = 1, #pickuprarity, 1 do
 						accum = accum + pickuprarity[k]
 						if Utils.gettop(rng2)%100 < accum then
 							if LayoutSettings.selectedslot[k] then

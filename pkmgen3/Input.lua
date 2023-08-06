@@ -14,14 +14,14 @@ function Input.update()
 end
 
 function Input.check(xmouse, ymouse)
-	for i = 1, table.getn(Buttons), 1 do
+	for i = 1, #Buttons, 1 do
 		if Buttons[i].visible() then
 			if Buttons[i].type == ButtonType.singleButton then
 				if Input.isInRange(xmouse, ymouse, Buttons[i].box[1], Buttons[i].box[2], Buttons[i].box[3], Buttons[i].box[4]) then
 					Buttons[i].onclick()
 				end
 			elseif Buttons[i].type == ButtonType.horizontalMenu then
-				local itemcount = table.getn(LayoutSettings.menus[Buttons[i].model].items)
+				local itemcount = #LayoutSettings.menus[Buttons[i].model].items
 				local itemwidth = Buttons[i].box[3] / itemcount
 				for j = 1, itemcount, 1 do
 					if Input.isInRange(xmouse, ymouse, (j-1) * itemwidth + Buttons[i].box[1], Buttons[i].box[2], itemwidth, Buttons[i].box[4]) then
@@ -29,7 +29,7 @@ function Input.check(xmouse, ymouse)
 					end
 				end
 			elseif Buttons[i].type == ButtonType.horizontalMenuBar then
-				local itemcount = table.getn(LayoutSettings.menus[Buttons[i].model].items)
+				local itemcount = #LayoutSettings.menus[Buttons[i].model].items
 				local itemwidth = (Buttons[i].box[3] - (Buttons[i].box[4] * 2)) / Buttons[i].visibleitems
 				if Input.isInRange(xmouse, ymouse, Buttons[i].box[1], Buttons[i].box[2], Buttons[i].box[4], Buttons[i].box[4]) then
 					if Buttons[i].firstvisible > 1 then
@@ -47,7 +47,7 @@ function Input.check(xmouse, ymouse)
 					end
 				end
 			elseif Buttons[i].type == ButtonType.verticalMenu then
-				local itemcount = table.getn(LayoutSettings.menus[Buttons[i].model].items)
+				local itemcount = #LayoutSettings.menus[Buttons[i].model].items
 				for j = 1, itemcount, 1 do
 					if Input.isInRange(xmouse, ymouse, Buttons[i].box_first[1], Buttons[i].box_first[2] + (j-1) * Buttons[i].box_first[4], Buttons[i].box_first[3], Buttons[i].box_first[4]) then
 						LayoutSettings.menus[Buttons[i].model].selecteditem = j
@@ -97,14 +97,14 @@ function Input.check(xmouse, ymouse)
 					end
 				end
 			elseif Buttons[i].type == ButtonType.pickupData then
-				for j = 1, table.getn(PickupData[GameSettings.version].rarity), 1 do
+				for j = 1, #PickupData[GameSettings.version].rarity, 1 do
 					if Input.isInRange(xmouse, ymouse, Buttons[i].box_first[1], Buttons[i].box_first[2] + j * (Buttons[i].box_first[4] + 2), Buttons[i].box_first[3], Buttons[i].box_first[4]) then
 						LayoutSettings.selectedslot[j] = not LayoutSettings.selectedslot[j]
 					end
 				end
 			elseif Buttons[i].type == ButtonType.catchData then
 				local enabled = Buttons[i].enabled()
-				for j = 1, table.getn(Buttons[i].text), 1 do
+				for j = 1, #Buttons[i].text, 1 do
 					if enabled[j] then
 						if Input.isInRange(xmouse, ymouse, Buttons[i].box_first[1], Buttons[i].box_first[2] + j * Buttons[i].box_first[4], Buttons[i].box_first[3], Buttons[i].box_first[4]) then
 							Buttons[i].onclick(j)

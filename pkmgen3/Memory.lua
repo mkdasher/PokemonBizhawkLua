@@ -2,7 +2,7 @@ Memory = {}
 
 function Memory.read(addr, size)
 	mem = ""
-	memdomain = bit.rshift(addr, 24)
+	memdomain = (addr >> 24)
 	if memdomain == 0 then
 		mem = "BIOS"
 	elseif memdomain == 2 then
@@ -12,7 +12,7 @@ function Memory.read(addr, size)
 	elseif memdomain == 8 then
 		mem = "ROM"
 	end
-	addr = bit.band(addr, 0xFFFFFF)
+	addr = (addr & 0xFFFFFF)
 	if size == 1 then
 		return memory.read_u8(addr,mem)
 	elseif size == 2 then
